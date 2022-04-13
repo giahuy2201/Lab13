@@ -13,7 +13,7 @@ public class CustomerRestForm {
     @Path("/teapot")
     @GET
     public Response getTeaPot() {
-        return Response.status(419).build();
+        return Response.status(418).build();
     }
 
     /**
