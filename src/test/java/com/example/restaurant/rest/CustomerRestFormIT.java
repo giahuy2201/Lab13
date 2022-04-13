@@ -8,6 +8,7 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.After;
 import org.junit.Before;
@@ -35,6 +36,13 @@ public class CustomerRestFormIT {
     @After
     public void tearDown() {
         server.shutdownNow();
+    }
+
+    @Test
+    public void testEIAmTeapot() {
+        target = ClientBuilder.newClient().target(Main.BASE_URI.resolve("customerform/teapot"));
+        Response response = target.request().get();
+        assertEquals(response.getStatus(), 418);
     }
 
     /**
@@ -81,6 +89,7 @@ public class CustomerRestFormIT {
 
     /**
      * Method to retrieve all customers using api call
+     *
      * @return
      */
     public List<Customer> retrieveAllCustomers() {
@@ -94,8 +103,9 @@ public class CustomerRestFormIT {
 
     /**
      * Method for creating a customer using the REST API
+     *
      * @param name of customer
-     * @param age of customer
+     * @param age  of customer
      */
     private Response createCustomer(String name, String age) {
         Form form = new Form();
